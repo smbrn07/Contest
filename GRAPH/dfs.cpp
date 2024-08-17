@@ -18,5 +18,6 @@ const int nmax = 1e5+7;
 signed main() {
    cin.tie(nullptr)->sync_with_stdio(false);
    cout << 1;
+   
    return 0;
 }
