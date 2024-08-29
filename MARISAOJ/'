@@ -1,0 +1,73 @@
+#include "bits/stdc++.h"
+
+using namespace std;
+
+typedef long long ll;
+
+#define endl '\n'
+#define ff first
+#define ss second
+#define pb push_back
+#define sz(a) int(a.size())
+#define allin(a) begin(a), end(a)
+
+const int mod = 1e9 + 7;
+const int nmax = 1e5 + 7;
+
+int n, q;
+vector<int> adj[nmax];
+bool visited[nmax];
+int parent[nmax], ord[nmax];
+int res = 0;
+
+void make_set() {
+   for (int i = 1; i <= n; ++i) {
+      parent[i] = i;
+      ord[i] = 1;
+   }
+}
+
+int find(int u) { return ((u == parent[u]) ? u : parent[u] = find(parent[u])); }
+
+void Union(int u, int v) {
+   if (u != v) {
+      if (ord[u] < ord[v])
+         swap(u, v);
+      parent[v] = u;
+      ord[u] += ord[v];
+   }
+}
+
+void dfs(int u) {
+   visited[u] = 1;
+   for (int v : adj[u]) {
+      if (!visited[v]) {
+         res += v;
+         visited[v] = 1;
+         dfs(v);
+      }
+   }
+}
+
+signed main() {
+   cin.tie(nullptr)->sync_with_stdio(false);
+   cin >> n >> q;
+   while (q--) {
+      int st;
+      if (st == 1) {
+         int u, v;
+         cin >> u >> v;
+         adj[u].pb(v);
+         adj[v].pb(u);
+      } else {
+         int u;
+         cin >> u;
+         memset(visited, 0, sizeof(visited));
+         res = u;
+         dfs(u);
+         cout << res << endl;
+      }
+   }
+
+   return 0;
+}

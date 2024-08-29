@@ -43,6 +43,15 @@ void Union(int a, int b) {
    }
 }
 
+// dsu rand
+void join(int u, int v) {
+   u = find(u), v = find(v);
+   if (rand() & 1)
+      parent[u] = v;
+   else
+      parent[v] = u;
+}
+
 signed main() {
    cin.tie(nullptr)->sync_with_stdio(false);
    return 0;
