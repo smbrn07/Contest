@@ -12,28 +12,25 @@ typedef long long ll;
 #define allin(a) begin(a), end(a)
 
 const int mod = 1e9 + 7;
+const ll INF = 2e18;
 const int nmax = 1e5 + 7;
 
-int n;
-vector<int> adj[nmax];
-bool visited[nmax];
+struct Edge {
+  int v;
+  ll w;
+};
+
+struct Node {
+  int u;
+  ll Dist_u;
+};
+
+struct cmp {
+  bool operator()(Node a, Node b) { return a.Dist_u > b.Dist_u; }
+};
 
 signed main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  int n;
-  cin >> n;
-  for (int i = 1; i < n; ++i) {
-    int x, y;
-    cin >> x >> y;
-    adj[x].pb(y);
-    adj[y].pb(x);
-  }
-  int cnt = 0;
-  for (int i = 1; i <= n; ++i) {
-    if (adj[i].size() <= 1)
-      ++cnt;
-  }
-  cout << max(cnt, 1) << endl;
 
   return 0;
 }

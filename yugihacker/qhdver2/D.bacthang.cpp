@@ -12,28 +12,26 @@ typedef long long ll;
 #define allin(a) begin(a), end(a)
 
 const int mod = 1e9 + 7;
-const int nmax = 1e5 + 7;
+const int nmax = 1e6 + 7;
 
-int n;
-vector<int> adj[nmax];
-bool visited[nmax];
+int n, k;
+ll dp[nmax];
+bool cor[nmax];
 
 signed main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  int n;
-  cin >> n;
-  for (int i = 1; i < n; ++i) {
-    int x, y;
-    cin >> x >> y;
-    adj[x].pb(y);
-    adj[y].pb(x);
+  cin >> n >> k;
+  for (int i = 1; i <= k; ++i) {
+    int x;
+    cin >> x;
+    cor[x] = 1;
   }
-  int cnt = 0;
-  for (int i = 1; i <= n; ++i) {
-    if (adj[i].size() <= 1)
-      ++cnt;
+  dp[1] = 1;
+  for (int i = 2; i <= n; ++i) {
+    if (!cor[i])
+      dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
   }
-  cout << max(cnt, 1) << endl;
+  cout << dp[n] << endl;
 
   return 0;
 }

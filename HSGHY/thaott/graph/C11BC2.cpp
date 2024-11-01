@@ -14,26 +14,11 @@ typedef long long ll;
 const int mod = 1e9 + 7;
 const int nmax = 1e5 + 7;
 
-int n;
+int n, m;
 vector<int> adj[nmax];
-bool visited[nmax];
 
 signed main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  int n;
-  cin >> n;
-  for (int i = 1; i < n; ++i) {
-    int x, y;
-    cin >> x >> y;
-    adj[x].pb(y);
-    adj[y].pb(x);
-  }
-  int cnt = 0;
-  for (int i = 1; i <= n; ++i) {
-    if (adj[i].size() <= 1)
-      ++cnt;
-  }
-  cout << max(cnt, 1) << endl;
 
   return 0;
 }

@@ -14,26 +14,38 @@ typedef long long ll;
 const int mod = 1e9 + 7;
 const int nmax = 1e5 + 7;
 
-int n;
+int n, d[nmax];
 vector<int> adj[nmax];
 bool visited[nmax];
 
+void bfs(int i) {
+  visited[i] = 1;
+  queue<int> q;
+  q.push(i);
+  while (!q.empty()) {
+    int v = q.front();
+    q.pop();
+    for (int u : adj[v]) {
+      if (!visited[u]) {
+        visited[u] = 1;
+        d[u] = d[v] + 1;
+        q.push(u);
+      }
+    }
+  }
+}
+
 signed main() {
   cin.tie(nullptr)->sync_with_stdio(false);
-  int n;
   cin >> n;
   for (int i = 1; i < n; ++i) {
     int x, y;
     cin >> x >> y;
-    adj[x].pb(y);
-    adj[y].pb(x);
+    adj[x].pb(y), adj[y].pb(x);
   }
-  int cnt = 0;
+  bfs(1);
   for (int i = 1; i <= n; ++i) {
-    if (adj[i].size() <= 1)
-      ++cnt;
+    cout << d[i] << " ";
   }
-  cout << max(cnt, 1) << endl;
-
   return 0;
 }

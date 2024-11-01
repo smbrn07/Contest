@@ -18,41 +18,41 @@ int n;
 int parent[nmax], ord[nmax];
 
 void make_set() {
-   for (int i = 1; i <= n; ++i) {
-      parent[i] = i;
-      ord[i] = 1;
-   }
+  for (int i = 1; i <= n; ++i) {
+    parent[i] = i;
+    ord[i] = 1;
+  }
 }
 
 // path compression
 int find(int v) {
-   if (v == parent[v])
-      return v;
-   return parent[v] = find(parent[v]);
+  if (v == parent[v])
+    return v;
+  return parent[v] = find(parent[v]);
 }
 
 // heuristic
 void Union(int a, int b) {
-   a = find(a), b = find(b);
-   if (a != b) {
-      if (ord[a] < ord[b]) {
-         swap(a, b);
-         parent[b] = a;
-         ord[a] += ord[b];
-      }
-   }
+  a = find(a), b = find(b);
+  if (a != b) {
+    if (ord[a] < ord[b]) {
+      swap(a, b);
+      parent[b] = a;
+      ord[a] += ord[b];
+    }
+  }
 }
 
 // dsu rand
 void join(int u, int v) {
-   u = find(u), v = find(v);
-   if (rand() & 1)
-      parent[u] = v;
-   else
-      parent[v] = u;
+  u = find(u), v = find(v);
+  if (rand() & 1)
+    parent[u] = v;
+  else
+    parent[v] = u;
 }
 
 signed main() {
-   cin.tie(nullptr)->sync_with_stdio(false);
-   return 0;
+  cin.tie(nullptr)->sync_with_stdio(false);
+  return 0;
 }
