@@ -1,0 +1,40 @@
+#include "bits/stdc++.h"
+
+using namespace std;
+
+typedef long long ll;
+
+const int mod = 1e9 + 7;
+const int nmax = 1e3 + 7;
+
+int n, m, k, a[nmax][nmax];
+ll dp[nmax][nmax];
+
+ll calc(int x, int y, int u, int v) {
+  return dp[u][v] - dp[u][y - 1] - dp[x - 1][v] + dp[x - 1][y - 1];
+}
+
+signed main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+  cin >> n >> m >> k;
+  for (int i = 1; i <= n; ++i) {
+    for (int j = 1; j <= m; ++j) {
+      cin >> a[i][j];
+      dp[i][j] = dp[i - 1][j] + dp[i][j - 1] - dp[i - 1][j - 1] + a[i][j];
+    }
+  }
+  while (k--) {
+    int x, y, u, v;
+    cin >> x >> y >> u >> v;
+    ll sum = calc(x, y, u, v), res = sum;
+    for (int i = 1; i <= v - y; ++i) {
+      res = min(res, abs(sum - 2ll * calc(x, y, u, v - i)));
+    }
+    for (int i = 1; i <= u - x; ++i) {
+      res = min(res, abs(sum - 2ll * calc(x, y, u - i, v)));
+    }
+    cout << res << '\n';
+  }
+  return 0;
+}
